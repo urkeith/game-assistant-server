@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"strconv"
 
-	// "yourapp/internal/ws"
 	"database/sql"
 
 	"github.com/gorilla/mux"

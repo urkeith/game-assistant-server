@@ -31,7 +31,7 @@ func Connect(databaseUrl string) *sql.DB {
 }
 
 func GetAllCards(db *sql.DB) ([]model.Card, error) {
-	rows, err := db.Query("SELECT id, title, description FROM cards")
+	rows, err := db.Query("SELECT id, title, description FROM Cards")
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func GetAllCards(db *sql.DB) ([]model.Card, error) {
 
 func GetCard(db *sql.DB, id int) (*model.Card, error) {
 	card := &model.Card{ID: id}
-	err := db.QueryRow("SELECT title, description FROM cards WHERE id = $1",
+	err := db.QueryRow("SELECT title, description FROM Cards WHERE id = $1",
 		id).Scan(&card.Title, &card.Description)
 	if err != nil {
 		return nil, err
@@ -61,7 +61,7 @@ func GetCard(db *sql.DB, id int) (*model.Card, error) {
 func InsertCard(db *sql.DB, card *model.Card) (int, error) {
 	var id int
 	err := db.QueryRow(
-		"INSERT INTO cards (title, description) VALUES ($1, $2) RETURNING id",
+		"INSERT INTO Cards (title, description) VALUES ($1, $2) RETURNING id",
 		card.Title, card.Description).Scan(&id)
 	return id, err
 }
